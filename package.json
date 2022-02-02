@@ -23,7 +23,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.30",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "bootstrap": "^4.4.1",
-    "keycloak-angular": "^9.1.0",
+    "keycloak-angular": "^9.0.5",
     "keycloak-js": "^16.1.1",
     "ng-image-slider": "^2.6.4",
     "rxjs": "~6.5.4",
