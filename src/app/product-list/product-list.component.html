@@ -1,0 +1,18 @@
+<div *ngFor="let product of products" class="container-fluid border">
+  <br>
+  <div class="container-fluid border">
+
+    <div class="m-3 d-lg-inline-block">
+      <a (click)="onTitleClick(product.title)"> <img class="btn img-thumbnail" src="/assets/img/goreit_logo.jpg"
+                                                     alt="Card image cap"></a>
+    </div>
+    <div class="d-lg-inline-block">
+      <a class="btn" (click)="onTitleClick(product.title)"><h4> {{product.title}}</h4></a>
+      <p>{{product.price}} PLN</p>
+    </div>
+    <br>
+  </div>
+  <br>
+  <br>
+
+</div>

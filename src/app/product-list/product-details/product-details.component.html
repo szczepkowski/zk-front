@@ -1,0 +1,101 @@
+<div ngModel="product" class="container-fluid border">
+
+  <div class="container-fluid p-3 mb-3 mt-3 border">
+
+    <div class="d-inline-block m-3">
+      <img class="img-thumbnail" src="/assets/img/goreit_logo.jpg" alt="Card image cap">
+    </div>
+
+    <div class="d-inline-block">
+      <div>
+        <p><b>{{product.title}}</b></p>
+      </div>
+      <div class="mt-3">
+        <p> Dostepna ilosc: <i>{{product.quantity}}</i></p>
+      </div>
+    </div>
+
+
+    <div class="d-lg-inline-block border m-1 float-right">
+      <div class="container-sm m-3"> {{product.price}} PLN</div>
+      <p class="btn-warning" [hidden]="isLoggedIn()"> Tylko zalogowani uzytkownicy moga dokonywac zakupu </p>
+      <form (ngSubmit)="onOrderBuyClick(n)" #n="ngForm">
+        <div [hidden]="!isLoggedIn()" class="form-group m-0">
+          <div class="form-check">
+            <label class="text-" for="amount">
+              <small>Liczba sztuk</small>
+            </label>
+            <input type="text"
+                   id="amount"
+                   class="form-control"
+                   ngModel
+                   name="amount"
+                   required
+                   #amount="ngModel"/>
+            <button type="submit"
+                    class="btn btn-primary mt-1 mb-1"
+                    [disabled]="amount.value > product.quantity || amount.value < 1 ">Kup teraz
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+
+  <div class="container-fluid fmb-3 mt-3 p-3 border">
+    <p>Sprzedajacy: {{product.sellerId}}</p>
+  </div>
+
+  <div [hidden]="this.product.boughtByList === undefined" class="container-fluid fmb-3 mt-3 p-3 border">
+    <p>Kupione przez: </p>
+    <div *ngFor=" let user of this.product.boughtByList">
+      <p class="text-primary">{{user}}</p>
+    </div>
+  </div>
+
+
+  <div [innerHTML]="product.text" class="container-fluid fmb-3 mt-3 p-3 border">
+  </div>
+
+
+  <div>
+
+    <div class="alert alert-primary" role="alert">
+      {{product.photoAlbum.name}}
+    </div>
+    <ng-image-slider [animationSpeed]="0.5" [images]="this.imageObjects" #nav></ng-image-slider>
+
+  </div>
+
+  <div class="container mt-3">
+    <form (ngSubmit)="onCommentAdd(f)" #f="ngForm">
+      <div class="form-group">
+        <div class="form-check">
+          <h3> Wasze komentarze</h3>
+          <label for="text"></label>
+          <textarea type="text"
+                    id="text"
+                    rows="4"
+                    class="form-control"
+                    ngModel
+                    name="text"
+                    required
+                    #text="ngModel"></textarea>
+          <button type="submit"
+                  class="btn btn-primary"
+                  [disabled]="!f.valid">Dodaj
+          </button>
+          <p *ngIf="!text.valid && text.touched"> Please provide a comment</p>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <app-comment class="mt-1 " *ngFor="let comment of product.comments" [userId]="comment.userId"
+               [text]="comment.text"></app-comment>
+
+</div>
+<br>
+<br>
+
